@@ -1,0 +1,15 @@
+.table-area{
+  background-color: #FFFFFF;
+  width: 70%;
+  margin: auto;
+  padding: 1rem 1rem;
+  &__nothing-display{
+    display: flex;
+    justify-content: center;
+  }
+  &__action-buttons{
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+}

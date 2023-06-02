@@ -1,0 +1,58 @@
+<div class="header">
+  <div class="header__text">Сущность</div>
+  <mat-icon (click)="close()">close</mat-icon>
+</div>
+<div *ngIf="form" class="info" [formGroup]="form">
+  <div
+    class="info__application"
+    *ngIf="data.typeOfEntity === EntityEnum.APPLICATIONS"
+  >
+    <h1>Application</h1>
+    <div class="info info__application-parameters">
+      <mat-form-field [appearance]="'outline'">
+        <mat-label>Название:</mat-label>
+        <input matInput [formControlName]="'name'" />
+      </mat-form-field>
+      <mat-form-field [appearance]="'outline'">
+        <mat-label>Цена:</mat-label>
+        <input matInput [formControlName]="'price'" />
+      </mat-form-field>
+      <mat-checkbox [color]="'accent'" formControlName="switchOff"
+        >Включен</mat-checkbox
+      >
+    </div>
+  </div>
+  <div *ngIf="data.typeOfEntity !== EntityEnum.OFFERS" class="info__campaign">
+    <h1>Campaign</h1>
+    <div class="info info__campaign-parameters">
+      <mat-form-field [appearance]="'outline'">
+        <mat-label>Название:</mat-label>
+        <input matInput [formControlName]="'campaignName'" />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="info__offers">
+    <div
+      class="info info__offers-header"
+      *ngIf="data.typeOfEntity !== EntityEnum.OFFERS"
+    >
+      <h1>Offers</h1>
+      <button
+        mat-raised-button
+        [color]="'primary'"
+        (click)="addOfferComponent()"
+      >
+        Add offer
+      </button>
+    </div>
+    <div #container><ng-content></ng-content></div>
+  </div>
+</div>
+<div class="footer">
+  <div class="footer__start-button">
+    <button mat-raised-button [color]="'primary'" (click)="save()">
+      Сохранить
+    </button>
+  </div>
+  <button mat-raised-button [color]="'warn'" (click)="close()">Выход</button>
+</div>

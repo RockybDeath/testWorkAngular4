@@ -1,0 +1,38 @@
+<ng-template let-name #signInForm>
+  <mat-card>
+    <mat-card-title>{{ name }}</mat-card-title>
+    <mat-card-content *ngIf="form">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+        <mat-form-field [appearance]="'outline'">
+          <mat-label>Username</mat-label>
+          <input formControlName="login" matInput />
+          <mat-error> Please provide a valid username </mat-error>
+        </mat-form-field>
+        <mat-form-field [appearance]="'outline'">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password" />
+          <mat-error> Please provide a valid password </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" [disabled]="!form.valid">
+          Submit
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
+<mat-tab-group (selectedTabChange)="changeMode($event)">
+  <mat-tab label="Register">
+    <ng-container
+      [ngTemplateOutlet]="signInForm"
+      [ngTemplateOutletContext]="{ $implicit: 'Register' }"
+    >
+    </ng-container>
+  </mat-tab>
+  <mat-tab label="Sign in">
+    <ng-container
+      [ngTemplateOutlet]="signInForm"
+      [ngTemplateOutletContext]="{ $implicit: 'Sign in' }"
+    >
+    </ng-container>
+  </mat-tab>
+</mat-tab-group>

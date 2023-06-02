@@ -1,0 +1,23 @@
+<div [formGroup]="form">
+  <h1>Offer</h1>
+  <div class="offer-parameters">
+    <mat-form-field [appearance]="'outline'">
+      <mat-label>Название:</mat-label>
+      <input matInput [formControlName]="'name'" />
+    </mat-form-field>
+    <mat-form-field [appearance]="'outline'">
+      <mat-label>Вес:</mat-label>
+      <input matInput [formControlName]="'weight'" />
+    </mat-form-field>
+  </div>
+  <div class="offer-parameters">
+    <mat-form-field [appearance]="'outline'">
+      <mat-label>Ссылка:</mat-label>
+      <input matInput [formControlName]="'href'" />
+    </mat-form-field>
+    <mat-form-field [appearance]="'outline'">
+      <mat-label>Стоимость:</mat-label>
+      <input matInput [formControlName]="'amount'" />
+    </mat-form-field>
+  </div>
+</div>

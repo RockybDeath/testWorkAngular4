@@ -1,0 +1,49 @@
+<div class="table-area">
+  <div *ngIf="dataSource$ | async as ds" class="table-area__data-source">
+    <table
+      mat-table
+      *ngIf="ds.data.length > 0; else nothingDisplay"
+      [dataSource]="ds"
+    >
+      <ng-container matColumnDef="offerName">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td class="main-document" mat-cell *matCellDef="let element">
+          {{ element.name }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns$.value"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns$.value"></tr>
+    </table>
+    <ng-template #nothingDisplay>
+      <div class="table-area__nothing-display">
+        <h1>Нет данных</h1>
+      </div>
+      <div class="table-area__action-buttons">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="action(ActionEnum.CREATE)"
+        >
+          Create object
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="action(ActionEnum.EDIT)"
+          [disabled]="!chosenObject"
+        >
+          Edit chosen object
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="action(ActionEnum.DELETE)"
+          [disabled]="!chosenObject"
+        >
+          Delete chosen object
+        </button>
+      </div>
+    </ng-template>
+  </div>
+</div>

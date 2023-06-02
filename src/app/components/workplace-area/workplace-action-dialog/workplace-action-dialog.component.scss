@@ -1,0 +1,55 @@
+:host{
+  width: 55vw;
+  max-height: 80vh;
+  overflow-y: auto;
+  display: block;
+}
+mat-icon{
+  cursor: pointer;
+}
+.header{
+  background-color: #3f51b5;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 10px;
+  height: 40px;
+  &__text{
+    flex: 1 0 0;
+  }
+}
+.info{
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  margin-top: 1rem;
+  &__application-parameters, &__campaign-parameters, &__offer-parameters, &__offers-header{
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+  }
+  &__offers-header{
+    margin-bottom: 1rem;
+    h1{
+      margin: 0;
+    }
+  }
+}
+.footer{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 10px;
+  margin-bottom: 20px;
+  &__start-button{
+    flex: 1 0 0
+  }
+}
+mat-form-field{
+  width: 400px;
+}

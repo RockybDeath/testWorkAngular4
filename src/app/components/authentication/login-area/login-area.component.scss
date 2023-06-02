@@ -1,0 +1,22 @@
+:host {
+  display: flex;
+  justify-content: center;
+}
+
+mat-card {
+  width: 600px;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+mat-form-field {
+  display: block;
+  margin: 10px;
+}
+
+mat-tab-group{
+  background-color: #FFFFFF;
+  margin-top: 3rem;
+  padding: 0 1rem;
+  border-radius: 20px;
+}

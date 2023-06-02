@@ -1,0 +1,24 @@
+<div class="options">
+  <h1>Выберите сущность</h1>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="navigateToChosenTable(EntityEnum.APPLICATIONS)"
+  >
+    Applications
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="navigateToChosenTable(EntityEnum.CAMPAIGNS)"
+  >
+    Campaigns
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="navigateToChosenTable(EntityEnum.OFFERS)"
+  >
+    Offers
+  </button>
+</div>
