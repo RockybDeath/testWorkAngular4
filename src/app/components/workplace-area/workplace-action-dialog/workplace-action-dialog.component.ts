@@ -15,6 +15,7 @@ import { FormActionData } from '../../../models/formActionData';
 import { Campaign } from '../../../models/campaign';
 import { Application } from '../../../models/application';
 import { WorkplaceOfferCreationComponent } from '../workplace-offer-creation/workplace-offer-creation.component';
+import { StorageService } from '../../../services/storage.service';
 
 @Component({
   selector: 'app-workplace-action-dialog',
@@ -22,28 +23,31 @@ import { WorkplaceOfferCreationComponent } from '../workplace-offer-creation/wor
   styleUrls: ['./workplace-action-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WorkplaceActionDialogComponent implements AfterViewInit {
+export class WorkplaceActionDialogComponent {
   public form!: FormGroup;
-  @ViewChild('container', { read: ViewContainerRef })
-  container?: ViewContainerRef;
-  public offers: WorkplaceOfferCreationComponent[] = [];
+  // @ViewChild('container', { read: ViewContainerRef })
+  // container?: ViewContainerRef;
+  // public offers: WorkplaceOfferCreationComponent[] = [];
+  @ViewChild('offerCreate')
+  offer?: WorkplaceOfferCreationComponent;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    public dialogRef: MatDialogRef<WorkplaceActionDialogComponent>
+    public dialogRef: MatDialogRef<WorkplaceActionDialogComponent>,
+    private storageService: StorageService
   ) {
     this.createForm();
     this.patchForm();
   }
 
-  public addOfferComponent(): void {
-    if (this.container) {
-      const ref = this.container.createComponent(
-        WorkplaceOfferCreationComponent
-      );
-      const newItem: WorkplaceOfferCreationComponent = ref.instance;
-      this.offers.push(newItem);
-    }
-  }
+  // public addOfferComponent(): void {
+  //   if (this.container) {
+  //     const ref = this.container.createComponent(
+  //       WorkplaceOfferCreationComponent
+  //     );
+  //     const newItem: WorkplaceOfferCreationComponent = ref.instance;
+  //     this.offers.push(newItem);
+  //   }
+  // }
   private createForm(): void {
     this.form = new FormGroup({});
     switch (this.data.typeOfEntity) {
@@ -58,11 +62,11 @@ export class WorkplaceActionDialogComponent implements AfterViewInit {
     this.form.markAsTouched();
   }
 
-  ngAfterViewInit(): void {
-    if (this.data.typeOfEntity === EntityEnum.OFFERS) {
-      this.addOfferComponent();
-    }
-  }
+  // ngAfterViewInit(): void {
+  //   if (this.data.typeOfEntity === EntityEnum.OFFERS) {
+  //     this.addOfferComponent();
+  //   }
+  // }
   private addApplicationControls(): void {
     this.form.addControl(
       'name',
@@ -104,8 +108,10 @@ export class WorkplaceActionDialogComponent implements AfterViewInit {
           result = this.createCampaign(formValue);
           break;
         case EntityEnum.OFFERS:
-          result = this.offers[0].getOrder();
-          break;
+          result = this.offer!.getOrder();
+          if (result) {
+            this.storageService.saveEntity(result, this.data.typeOfEntity);
+          }
       }
       if (result) {
         this.dialogRef.close(result);
@@ -123,14 +129,14 @@ export class WorkplaceActionDialogComponent implements AfterViewInit {
   }
 
   private createCampaign(formData: FormActionData): Campaign {
-    const orders = this.offers.reduce((ordersArray, offerComp) => {
-      const order = offerComp.getOrder();
-      if (order) {
-        ordersArray.push(order);
-      }
-      return ordersArray;
-    }, [] as Order[]);
-    return new Campaign(formData.campaignName, orders);
+    // const orders = this.offers.reduce((ordersArray, offerComp) => {
+    //   const order = offerComp.getOrder();
+    //   if (order) {
+    //     ordersArray.push(order);
+    //   }
+    //   return ordersArray;
+    // }, [] as Order[]);
+    return new Campaign(formData.campaignName, []);
   }
 
   protected readonly EntityEnum = EntityEnum;

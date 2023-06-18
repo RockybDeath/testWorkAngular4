@@ -6,6 +6,7 @@ import { Campaign } from '../models/campaign';
 import { OrderStorageService } from './order-storage.service';
 import { Order } from '../models/order';
 import { Observable } from 'rxjs';
+import { EntityEnum } from '../models/entity.enum';
 
 @Injectable()
 export class StorageService {
@@ -68,6 +69,37 @@ export class StorageService {
 
   public getColumnApplications(): string[] {
     return this.applicationStorage.getColumns();
+  }
+
+  public saveEntity(
+    entity: Application | Order | Campaign,
+    typeOfEntity: EntityEnum
+  ): boolean {
+    switch (typeOfEntity) {
+      case EntityEnum.APPLICATIONS:
+        return this.applicationStorage.addApplication(entity as Application);
+      case EntityEnum.CAMPAIGNS:
+        return this.campaignStorage.addCampaign(entity as Campaign);
+      case EntityEnum.OFFERS:
+        return this.orderStorage.addOrder(entity as Order);
+    }
+  }
+
+  public deleteEntity(
+    entity: Application | Order | Campaign,
+    typeOfEntity: EntityEnum
+  ): void {
+    switch (typeOfEntity) {
+      case EntityEnum.APPLICATIONS:
+        this.applicationStorage.deleteApplication(entity as Application);
+        break;
+      case EntityEnum.CAMPAIGNS:
+        this.campaignStorage.deleteCampaign(entity as Campaign);
+        break;
+      case EntityEnum.OFFERS:
+        this.orderStorage.deleteOrder(entity as Order);
+        break;
+    }
   }
 
   public refreshDataBase(): void {}

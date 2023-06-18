@@ -18,10 +18,15 @@ export class OrderStorageService implements OnDestroy {
     this._orders$.next(orders);
   }
 
-  public addOrder(order: Order): void {
+  public addOrder(order: Order): boolean {
     const orders = this._orders$.value;
-    orders.push(order);
-    this._orders$.next(orders);
+    if (orders.find((ord) => ord.offer.name === order.offer.name)) {
+      return false;
+    } else {
+      orders.push(order);
+      this._orders$.next(orders);
+      return true;
+    }
   }
 
   public deleteOrder(order: Order): void {

@@ -32,20 +32,10 @@
     </div>
   </div>
   <div class="info__offers">
-    <div
-      class="info info__offers-header"
-      *ngIf="data.typeOfEntity !== EntityEnum.OFFERS"
-    >
-      <h1>Offers</h1>
-      <button
-        mat-raised-button
-        [color]="'primary'"
-        (click)="addOfferComponent()"
-      >
-        Add offer
-      </button>
-    </div>
-    <div #container><ng-content></ng-content></div>
+    <app-workplace-offer-creation
+      #offerCreate
+      *ngIf="data.typeOfEntity === EntityEnum.OFFERS"
+    ></app-workplace-offer-creation>
   </div>
 </div>
 <div class="footer">

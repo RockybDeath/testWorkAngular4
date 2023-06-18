@@ -78,28 +78,25 @@ export class WorkplaceTableComponent implements OnDestroy {
     switch (action) {
       case ActionEnum.CREATE:
         // eslint-disable-next-line no-case-declarations
-        const dialogRefCreate = this.dialog.open(
-          WorkplaceActionDialogComponent,
-          {
-            data: {
-              object: undefined,
-              typeOfEntity: this.entityMode,
-            } as DialogData,
-          }
-        );
-        dialogRefCreate
-          .afterClosed()
-          .pipe(takeUntil(this.destroy$))
-          .subscribe((result) => {
-            if (result) {
-            }
-          });
+        this.dialog.open(WorkplaceActionDialogComponent, {
+          data: {
+            object: undefined,
+            typeOfEntity: this.entityMode,
+          } as DialogData,
+        });
         break;
       case ActionEnum.EDIT:
         break;
       case ActionEnum.DELETE:
+        if (this.chosenObject) {
+          this.storageService.deleteEntity(this.chosenObject, this.entityMode);
+        }
         break;
     }
+  }
+
+  public selectEntity(entity: Application | Order | Campaign): void {
+    this.chosenObject = entity;
   }
 
   public ngOnDestroy(): void {

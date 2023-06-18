@@ -20,10 +20,15 @@ export class ApplicationStorageService implements OnDestroy {
     this._applications$.next(applications);
   }
 
-  public addApplication(application: Application): void {
+  public addApplication(application: Application): boolean {
     const applications = this._applications$.value;
-    applications.push(application);
-    this._applications$.next(applications);
+    if (applications.find((app) => app.name === application.name)) {
+      return false;
+    } else {
+      applications.push(application);
+      this._applications$.next(applications);
+      return true;
+    }
   }
 
   public deleteApplication(application: Application): void {

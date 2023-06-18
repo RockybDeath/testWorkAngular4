@@ -20,10 +20,15 @@ export class CampaignStorageService implements OnDestroy {
     this._campaigns$.next(campaigns);
   }
 
-  public addCampaign(campaign: Campaign): void {
+  public addCampaign(campaign: Campaign): boolean {
     const campaigns = this._campaigns$.value;
-    campaigns.push(campaign);
-    this._campaigns$.next(campaigns);
+    if (campaigns.find((camp) => camp.name === campaign.name)) {
+      return false;
+    } else {
+      campaigns.push(campaign);
+      this._campaigns$.next(campaigns);
+      return true;
+    }
   }
 
   public deleteCampaign(campaign: Campaign): void {

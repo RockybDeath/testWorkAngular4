@@ -1,49 +1,68 @@
 <div class="table-area">
   <div *ngIf="dataSource$ | async as ds" class="table-area__data-source">
-    <table
-      mat-table
-      *ngIf="ds.data.length > 0; else nothingDisplay"
-      [dataSource]="ds"
-    >
+    <table mat-table *ngIf="ds.data.length > 0" [dataSource]="ds">
       <ng-container matColumnDef="offerName">
-        <th mat-header-cell *matHeaderCellDef></th>
+        <th mat-header-cell *matHeaderCellDef>Name</th>
         <td class="main-document" mat-cell *matCellDef="let element">
-          {{ element.name }}
+          {{ element.offer.name }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="offerHref">
+        <th mat-header-cell *matHeaderCellDef>Href</th>
+        <td class="main-document" mat-cell *matCellDef="let element">
+          <a [href]="element.offer.href">{{ element.offer.href }}</a>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="offerWeight">
+        <th mat-header-cell *matHeaderCellDef>Weight</th>
+        <td class="main-document" mat-cell *matCellDef="let element">
+          {{ element.weight }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="offerAmount">
+        <th mat-header-cell *matHeaderCellDef>Amount</th>
+        <td class="main-document" mat-cell *matCellDef="let element">
+          {{ element.offer.amount }}
         </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns$.value"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns$.value"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns$.value"
+        (click)="selectEntity(row)"
+      ></tr>
     </table>
-    <ng-template #nothingDisplay>
-      <div class="table-area__nothing-display">
-        <h1>Нет данных</h1>
-      </div>
-      <div class="table-area__action-buttons">
-        <button
-          mat-raised-button
-          color="primary"
-          (click)="action(ActionEnum.CREATE)"
-        >
-          Create object
-        </button>
-        <button
-          mat-raised-button
-          color="primary"
-          (click)="action(ActionEnum.EDIT)"
-          [disabled]="!chosenObject"
-        >
-          Edit chosen object
-        </button>
-        <button
-          mat-raised-button
-          color="primary"
-          (click)="action(ActionEnum.DELETE)"
-          [disabled]="!chosenObject"
-        >
-          Delete chosen object
-        </button>
-      </div>
-    </ng-template>
+    <div *ngIf="ds.data.length === 0" class="table-area__nothing-display">
+      <h1>Нет данных</h1>
+    </div>
+    <div class="table-area__action-buttons">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="action(ActionEnum.CREATE)"
+      >
+        Create object
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="action(ActionEnum.EDIT)"
+        [disabled]="!chosenObject"
+      >
+        Edit chosen object
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="action(ActionEnum.DELETE)"
+        [disabled]="!chosenObject"
+      >
+        Delete chosen object
+      </button>
+    </div>
   </div>
 </div>

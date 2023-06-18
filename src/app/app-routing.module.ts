@@ -11,7 +11,7 @@ import { WorkplaceOptionsComponent } from './components/workplace-area/workplace
 const workplaceAreaRoutes: Routes = [
   {
     path: '',
-    canActivateChild: [AuthGuard],
+    // canActivateChild: [AuthGuard],
     children: [
       {
         path: '',
@@ -40,7 +40,7 @@ const workplaceAreaRoutes: Routes = [
 const routes: Routes = [
   {
     path: 'workplace',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     component: WorkplaceAreaComponent,
     children: workplaceAreaRoutes,
   },

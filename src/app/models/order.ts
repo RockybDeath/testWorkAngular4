@@ -2,7 +2,7 @@ import { Offer, TableOfferColumns } from './offer';
 
 export class Order {
   offer: Offer;
-  weight: number;
+  weight: number | undefined;
   constructor(offer: Offer, weight: number) {
     this.offer = offer;
     this.weight = weight;

@@ -19,7 +19,6 @@ export class WorkplaceOfferCreationComponent {
     this.form = new FormGroup({
       name: new FormControl<string>('', Validators.required),
       href: new FormControl<string>('', Validators.required),
-      weight: new FormControl<number>(0, Validators.required),
       amount: new FormControl<number>(0, Validators.required),
     });
   }
@@ -27,7 +26,7 @@ export class WorkplaceOfferCreationComponent {
   public getOrder(): Order | undefined {
     if (this.form.valid) {
       const order = {} as Order;
-      order.weight = this.form.value.weight;
+      order.weight = undefined;
       order.offer = this.createOffer();
       return order;
     } else return undefined;
